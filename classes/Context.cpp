@@ -109,8 +109,8 @@ static bool parse_configuration(HashTable* options, rtc::Configuration& config) 
 		ZVAL_DEREF(value);
 		const char* name = ZSTR_VAL(key);
 		std::string text;
-		zend_long number;
-		bool flag;
+		zend_long number = 0;
+		bool flag = false;
 
 		if (zend_string_equals_literal(key, "iceServers")) {
 			if (Z_TYPE_P(value) != IS_ARRAY) {
