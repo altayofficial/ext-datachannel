@@ -30,6 +30,7 @@ $remote = null;
 
 $opened = events_of($seenB, Context::EVENT_DATA_CHANNEL);
 var_dump(count($opened), $opened[0][3] instanceof DataChannel, $opened[0][3]->getLabel());
+var_dump($opened[0][3]->isOrdered(), $opened[0][3]->getMaxRetransmits(), $opened[0][3]->getMaxPacketLifeTime(), $opened[0][3]->getProtocol());
 $messages = events_of($seenB, Context::EVENT_MESSAGE);
 var_dump(array_map(fn(array $e) => strlen($e[3]), $messages));
 var_dump($messages[0][3] === "hello", $messages[1][3] === $payloads[1], $messages[0][4]);
@@ -44,6 +45,10 @@ echo "done\n";
 int(1)
 bool(true)
 string(19) "ReliableDataChannel"
+bool(true)
+NULL
+NULL
+string(0) ""
 array(3) {
   [0]=>
   int(5)

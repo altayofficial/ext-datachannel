@@ -137,6 +137,39 @@ ZEND_METHOD(altay_datachannel_DataChannel, getStream) {
 	RETURN_LONG(*stream);
 }
 
+ZEND_METHOD(altay_datachannel_DataChannel, getProtocol) {
+	ZEND_PARSE_PARAMETERS_NONE();
+	CHANNEL_THIS();
+	std::string protocol = channel->protocol();
+	RETURN_STRINGL(protocol.data(), protocol.size());
+}
+
+ZEND_METHOD(altay_datachannel_DataChannel, isOrdered) {
+	ZEND_PARSE_PARAMETERS_NONE();
+	CHANNEL_THIS();
+	RETURN_BOOL(!channel->reliability().unordered);
+}
+
+ZEND_METHOD(altay_datachannel_DataChannel, getMaxRetransmits) {
+	ZEND_PARSE_PARAMETERS_NONE();
+	CHANNEL_THIS();
+	auto reliability = channel->reliability();
+	if (!reliability.maxRetransmits) {
+		RETURN_NULL();
+	}
+	RETURN_LONG((zend_long)*reliability.maxRetransmits);
+}
+
+ZEND_METHOD(altay_datachannel_DataChannel, getMaxPacketLifeTime) {
+	ZEND_PARSE_PARAMETERS_NONE();
+	CHANNEL_THIS();
+	auto reliability = channel->reliability();
+	if (!reliability.maxPacketLifeTime) {
+		RETURN_NULL();
+	}
+	RETURN_LONG((zend_long)reliability.maxPacketLifeTime->count());
+}
+
 ZEND_METHOD(altay_datachannel_DataChannel, isOpen) {
 	ZEND_PARSE_PARAMETERS_NONE();
 	CHANNEL_THIS();

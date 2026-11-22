@@ -38,7 +38,7 @@ foreach([
 	}
 }
 $channel = $peer->createDataChannel("UnreliableDataChannel", ["unordered" => true, "maxRetransmits" => 0]);
-var_dump($channel->getLabel(), $channel->isOpen());
+var_dump($channel->getLabel(), $channel->isOpen(), $channel->isOrdered(), $channel->getMaxRetransmits());
 $peer->close();
 ?>
 --EXPECT--
@@ -56,3 +56,5 @@ ValueError: Option "maxRetransmits" must be an int between 0 and 65535
 ValueError: Options "maxRetransmits" and "maxPacketLifeTime" can't be used together
 string(21) "UnreliableDataChannel"
 bool(false)
+bool(false)
+int(0)

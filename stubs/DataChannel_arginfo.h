@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 582aceb2db9a38bb25e5f3b81de8d86699dfe78e */
+ * Stub hash: 0d6fa4813bd3d82c48cbf9dcb621fe19ac66579a */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_altay_datachannel_DataChannel___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -15,10 +15,18 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_altay_datachannel_DataChannel_getStream, 0, 0, IS_LONG, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_altay_datachannel_DataChannel_isOpen, 0, 0, _IS_BOOL, 0)
+#define arginfo_class_altay_datachannel_DataChannel_getProtocol arginfo_class_altay_datachannel_DataChannel_getLabel
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_altay_datachannel_DataChannel_isOrdered, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_altay_datachannel_DataChannel_isClosed arginfo_class_altay_datachannel_DataChannel_isOpen
+#define arginfo_class_altay_datachannel_DataChannel_getMaxRetransmits arginfo_class_altay_datachannel_DataChannel_getStream
+
+#define arginfo_class_altay_datachannel_DataChannel_getMaxPacketLifeTime arginfo_class_altay_datachannel_DataChannel_getStream
+
+#define arginfo_class_altay_datachannel_DataChannel_isOpen arginfo_class_altay_datachannel_DataChannel_isOrdered
+
+#define arginfo_class_altay_datachannel_DataChannel_isClosed arginfo_class_altay_datachannel_DataChannel_isOrdered
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_altay_datachannel_DataChannel_send, 0, 1, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, data, IS_STRING, 0)
@@ -40,6 +48,10 @@ ZEND_METHOD(altay_datachannel_DataChannel, getId);
 ZEND_METHOD(altay_datachannel_DataChannel, getPeerConnectionId);
 ZEND_METHOD(altay_datachannel_DataChannel, getLabel);
 ZEND_METHOD(altay_datachannel_DataChannel, getStream);
+ZEND_METHOD(altay_datachannel_DataChannel, getProtocol);
+ZEND_METHOD(altay_datachannel_DataChannel, isOrdered);
+ZEND_METHOD(altay_datachannel_DataChannel, getMaxRetransmits);
+ZEND_METHOD(altay_datachannel_DataChannel, getMaxPacketLifeTime);
 ZEND_METHOD(altay_datachannel_DataChannel, isOpen);
 ZEND_METHOD(altay_datachannel_DataChannel, isClosed);
 ZEND_METHOD(altay_datachannel_DataChannel, send);
@@ -54,6 +66,10 @@ static const zend_function_entry class_altay_datachannel_DataChannel_methods[] =
 	ZEND_ME(altay_datachannel_DataChannel, getPeerConnectionId, arginfo_class_altay_datachannel_DataChannel_getPeerConnectionId, ZEND_ACC_PUBLIC)
 	ZEND_ME(altay_datachannel_DataChannel, getLabel, arginfo_class_altay_datachannel_DataChannel_getLabel, ZEND_ACC_PUBLIC)
 	ZEND_ME(altay_datachannel_DataChannel, getStream, arginfo_class_altay_datachannel_DataChannel_getStream, ZEND_ACC_PUBLIC)
+	ZEND_ME(altay_datachannel_DataChannel, getProtocol, arginfo_class_altay_datachannel_DataChannel_getProtocol, ZEND_ACC_PUBLIC)
+	ZEND_ME(altay_datachannel_DataChannel, isOrdered, arginfo_class_altay_datachannel_DataChannel_isOrdered, ZEND_ACC_PUBLIC)
+	ZEND_ME(altay_datachannel_DataChannel, getMaxRetransmits, arginfo_class_altay_datachannel_DataChannel_getMaxRetransmits, ZEND_ACC_PUBLIC)
+	ZEND_ME(altay_datachannel_DataChannel, getMaxPacketLifeTime, arginfo_class_altay_datachannel_DataChannel_getMaxPacketLifeTime, ZEND_ACC_PUBLIC)
 	ZEND_ME(altay_datachannel_DataChannel, isOpen, arginfo_class_altay_datachannel_DataChannel_isOpen, ZEND_ACC_PUBLIC)
 	ZEND_ME(altay_datachannel_DataChannel, isClosed, arginfo_class_altay_datachannel_DataChannel_isClosed, ZEND_ACC_PUBLIC)
 	ZEND_ME(altay_datachannel_DataChannel, send, arginfo_class_altay_datachannel_DataChannel_send, ZEND_ACC_PUBLIC)

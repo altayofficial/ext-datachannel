@@ -25,6 +25,23 @@ final class DataChannel{
 
 	public function getStream() : ?int{}
 
+	public function getProtocol() : string{}
+
+	/**
+	 * False when the channel allows messages to arrive out of order.
+	 */
+	public function isOrdered() : bool{}
+
+	/**
+	 * Null for a channel that retransmits until delivery.
+	 */
+	public function getMaxRetransmits() : ?int{}
+
+	/**
+	 * In milliseconds, null for a channel without a lifetime limit.
+	 */
+	public function getMaxPacketLifeTime() : ?int{}
+
 	public function isOpen() : bool{}
 
 	public function isClosed() : bool{}
