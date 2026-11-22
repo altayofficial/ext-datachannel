@@ -23,10 +23,13 @@ if test "$PHP_DATACHANNEL" != "no"; then
   fi
 
   PHP_ADD_INCLUDE([$PHP_DATACHANNEL/include])
-  dnl static archives on purpose, the order matters: libdatachannel needs juice and usrsctp, which need openssl
-  DATACHANNEL_SHARED_LIBADD="$DATACHANNEL_LIBDIR/libdatachannel.a $DATACHANNEL_LIBDIR/libjuice.a $DATACHANNEL_LIBDIR/libusrsctp.a $DATACHANNEL_SHARED_LIBADD"
+  dnl these prepend, so they go in reverse: libdatachannel needs juice and usrsctp, which need openssl.
+  dnl only the static archives are installed there, so the linker can't pick anything else
   PHP_SETUP_OPENSSL([DATACHANNEL_SHARED_LIBADD], [], [AC_MSG_ERROR([OpenSSL not found])])
   PHP_ADD_LIBRARY([pthread], 1, DATACHANNEL_SHARED_LIBADD)
+  PHP_ADD_LIBRARY_WITH_PATH([usrsctp], [$DATACHANNEL_LIBDIR], DATACHANNEL_SHARED_LIBADD)
+  PHP_ADD_LIBRARY_WITH_PATH([juice], [$DATACHANNEL_LIBDIR], DATACHANNEL_SHARED_LIBADD)
+  PHP_ADD_LIBRARY_WITH_PATH([datachannel], [$DATACHANNEL_LIBDIR], DATACHANNEL_SHARED_LIBADD)
   PHP_SUBST([DATACHANNEL_SHARED_LIBADD])
 
   AC_DEFINE([RTC_STATIC], [1], [libdatachannel is linked statically])

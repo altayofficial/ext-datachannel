@@ -41,20 +41,20 @@ jobs:
         uses: actions/cache@v4
         id: libdatachannel-cache
         with:
-          path: ${{ github.workspace }}/build/prefix
+          path: ${{ runner.temp }}/libdatachannel
           key: libdatachannel-${{ steps.libdatachannel-rev.outputs.rev }}-ubuntu-22.04
 
       - name: Build libdatachannel
         if: steps.libdatachannel-cache.outputs.cache-hit != 'true'
         run: |
-          cmake -S deps/libdatachannel -B build/libdatachannel -G Ninja \
+          cmake -S deps/libdatachannel -B $RUNNER_TEMP/libdatachannel-build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
             -DBUILD_SHARED_LIBS=OFF \
             -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
             -DNO_MEDIA=ON -DNO_WEBSOCKET=ON -DNO_EXAMPLES=ON -DNO_TESTS=ON \
             -DUSE_NICE=OFF -DUSE_NETTLE=OFF \
-            -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/build/prefix
-          ninja -C build/libdatachannel install
+            -DCMAKE_INSTALL_PREFIX=$RUNNER_TEMP/libdatachannel
+          ninja -C $RUNNER_TEMP/libdatachannel-build install
 
       - name: Install Valgrind
         if: matrix.valgrind == '1'
@@ -103,7 +103,7 @@ jobs:
       - name: Compile extension
         run: |
           $GITHUB_WORKSPACE/php/bin/phpize
-          ./configure --with-php-config=$GITHUB_WORKSPACE/php/bin/php-config --with-datachannel=$GITHUB_WORKSPACE/build/prefix
+          ./configure --with-php-config=$GITHUB_WORKSPACE/php/bin/php-config --with-datachannel=$RUNNER_TEMP/libdatachannel
           make install
 
       - name: Generate php.ini

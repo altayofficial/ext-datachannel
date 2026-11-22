@@ -29,18 +29,18 @@ See [the stubs](stubs/) for the full API.
 
 ## Building
 
-libdatachannel is pinned as a submodule. Build it statically, then point the extension at its install prefix:
+libdatachannel is pinned as a submodule. Build it statically into a prefix outside this directory (`make distclean` deletes every `.a` under it), then point the extension at that prefix:
 
 ```sh
 git submodule update --init --recursive
-cmake -S deps/libdatachannel -B build/libdatachannel -G Ninja -DCMAKE_BUILD_TYPE=Release \
+cmake -S deps/libdatachannel -B /tmp/libdatachannel-build -G Ninja -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=OFF -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
   -DNO_MEDIA=ON -DNO_WEBSOCKET=ON -DNO_EXAMPLES=ON -DNO_TESTS=ON -DUSE_NICE=OFF -DUSE_NETTLE=OFF \
-  -DCMAKE_INSTALL_PREFIX=$PWD/build/prefix
-ninja -C build/libdatachannel install
+  -DCMAKE_INSTALL_PREFIX=/opt/libdatachannel
+ninja -C /tmp/libdatachannel-build install
 
 phpize
-./configure --with-datachannel=$PWD/build/prefix
+./configure --with-datachannel=/opt/libdatachannel
 make
 make test
 ```
